@@ -1,0 +1,14 @@
+#ifndef _PROJECT_H
+#define _PROJECT_H
+
+#define SABER_RX    4 // D1
+#define SABER_TX    5 // D2
+#define WIFI_SSID   "xxxxxxx"
+#define WIFI_PSK    "xxxxxxx"
+#define HOSTNAME    "babushka"
+#define OTA_PORT    8266
+#define PROGRAM     "telepresence"
+#define SYSLOG_SERV "255.255.255.255"
+#define SYSLOG_PORT 514
+
+#endif /* _PROJECT_H */
