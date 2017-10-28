@@ -21,6 +21,7 @@ void setup_wifi() {
     ESP.restart();
   }
 
-  IPAddress addr = WiFi.localIP();
-  syslog.logf(LOG_INFO, "booted with ip address %d.%d.%d.%d", addr[0], addr[1], addr[2], addr[3]);
+//  pointless because no logging yet
+//  IPAddress addr = WiFi.localIP();
+//  syslog.logf(LOG_INFO, "booted with ip address %d.%d.%d.%d", addr[0], addr[1], addr[2], addr[3]);
 }

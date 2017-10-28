@@ -7,6 +7,7 @@
 #define WIFI_PSK    "xxxxxxx"
 #define HOSTNAME    "babushka"
 #define OTA_PORT    8266
+#define TELE_PORT   9003
 #define PROGRAM     "telepresence"
 #define SYSLOG_SERV "255.255.255.255"
 #define SYSLOG_PORT 514
