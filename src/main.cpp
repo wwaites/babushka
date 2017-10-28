@@ -25,4 +25,9 @@ void setup() {
 void loop() {
   ArduinoOTA.handle();
   teleport();
+
+ if ((millis() - teleported) > TIMEOUT) {
+      saber_halt();
+      teleported = millis();
+  }
 }

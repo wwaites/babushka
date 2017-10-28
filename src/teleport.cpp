@@ -6,6 +6,7 @@
 
 WiFiUDP TelePort;
 char pktbuf[8];
+unsigned long teleported = 0;
 
 void setup_teleport() {
     if (TelePort.begin(TELE_PORT) == 1) {
@@ -20,15 +21,15 @@ void setup_teleport() {
 void teleport() {
     int pktsiz = TelePort.parsePacket();
     if (pktsiz <= 0) return;
-    syslog.logf(LOG_INFO, "packet size %d bytes", pktsiz);
 
     int pktlen = TelePort.read(pktbuf, 8);
-    syslog.logf(LOG_INFO, "received %d bytes", pktlen);
 
     if (!pktlen || pktlen % 4 != 0) {
         syslog.logf(LOG_INFO, "malformed packet of length %d bytes.", pktlen);
         return;
     }
+
+    teleported = millis();
 
     digitalWrite(LED_BUILTIN, HIGH);
     saberSerial.write(pktbuf, pktlen);

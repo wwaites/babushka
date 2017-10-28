@@ -7,4 +7,6 @@ extern SoftwareSerial saberSerial;
 
 void setup_sabertooth();
 
+void saber_halt();
+
 #endif /* _SABERTOOH_ */

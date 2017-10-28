@@ -11,5 +11,6 @@
 #define PROGRAM     "telepresence"
 #define SYSLOG_SERV "255.255.255.255"
 #define SYSLOG_PORT 514
+#define TIMEOUT     500
 
 #endif /* _PROJECT_H */
