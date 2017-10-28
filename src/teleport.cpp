@@ -5,7 +5,7 @@
 #include "sabertooth.h"
 
 WiFiUDP TelePort;
-char pktbuf[8];
+unsigned char pktbuf[5];
 unsigned long teleported = 0;
 
 void setup_teleport() {
@@ -22,16 +22,26 @@ void teleport() {
     int pktsiz = TelePort.parsePacket();
     if (pktsiz <= 0) return;
 
-    int pktlen = TelePort.read(pktbuf, 8);
+    int pktlen = TelePort.read(pktbuf, 5);
 
-    if (!pktlen || pktlen % 4 != 0) {
-        syslog.logf(LOG_INFO, "malformed packet of length %d bytes.", pktlen);
+    if (pktlen < 1) {
+        syslog.logf(LOG_WARNING, "malformed packet of length %d bytes.", pktlen);
         return;
     }
 
-    teleported = millis();
-
     digitalWrite(LED_BUILTIN, HIGH);
-    saberSerial.write(pktbuf, pktlen);
+    switch (pktbuf[0]) {
+        case 1: // Control motor
+            if (pktlen != 5) {
+                syslog.logf(LOG_WARNING, "malformed motor placement packet of %d bytes.", pktlen);
+                break;
+            }
+            saber_set(pktbuf+1);
+            teleported = millis();
+            break;
+        default:
+            syslog.logf(LOG_WARNING, "unknown packet format %d.", pktbuf[0]);
+            break;
+    }
     digitalWrite(LED_BUILTIN, LOW);
 }
